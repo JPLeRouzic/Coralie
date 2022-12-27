@@ -18,6 +18,8 @@ You should also be aware that there are much better flat-file CMS out there.
 Coralie uses small files instead of the horribly large htmly.php and functions.php.
 The login functions are properly written.
 
+Coralie does not use external tools for comments, it presently uses a modified forum frim Mitchel Urgero (https://urgero.org).
+
 Coralie separates the infrastructure (the system/includes folder which comes for the dispatch folder) from the functionalities from the views:
 ![image](https://user-images.githubusercontent.com/18621529/209707133-d3659acf-0595-4fc2-9dd8-58d9767264a5.png)
 
