@@ -3,6 +3,7 @@ Coralie is flat-file blog derived from HTMLy
 https://github.com/danpros/htmly
 
 After 3 years Coralie is now very different from HTMLy, but it still tries to be compatible with content developped on HTMLy.
+It is used in Padirac Innovation website: https://padiracinnovation.org/News/
 
 What attracted me to HTMLy initialy was the flat-file usage as I strongly dislike SQL and insecurities created by having another server on my VPS.
 HTMLy looks much simpler than Wordpress, so it might seduce as at first look, one person should be able to master the source code.
