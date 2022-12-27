@@ -19,7 +19,7 @@ Coralie uses small files instead of the horribly large htmly.php and functions.p
 The login functions are properly written.
 
 Coralie separates the infrastructure (the system/includes folder which comes for the dispatch folder) from the functionalities from the views:
-https://user-images.githubusercontent.com/18621529/209312692-522243cd-bfe3-41be-bb6e-2dcf3bd85d3a.png
+![image](https://user-images.githubusercontent.com/18621529/209707133-d3659acf-0595-4fc2-9dd8-58d9767264a5.png)
 
 In future there will be no HTML/JS code inbedded in PHP code of functionalities or infrastructure (like in today's code).
 
@@ -36,4 +36,7 @@ The user can listen to posts.
 You will not find internationalized menus as I don't feel the need, yet it should be very simple to introduce this function in Coralie.
 
 Coralie still has at least a dozen of bugs.
+
+You can have a look at it here:
+https://csrf.4lima.de/News
 
