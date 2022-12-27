@@ -1,0 +1,122 @@
+body {
+    font-family: monospace;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;    
+}
+
+header {
+    font-family: monospace;
+    font-weight: bolder;
+}
+
+.checker {
+    text-align: center;
+    text-decoration: underline;
+    color: #7C4A45;
+    font-style: italic;    
+}
+
+.checker:hover {
+    cursor: pointer;
+    color: #000000;
+}
+
+#ttsInput {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+#customise-options {
+    text-align: center;
+}
+
+select, label, input {
+    display: inline-block;
+}
+
+#voice-label {
+    margin-top: 25px;
+    margin-left: 0px;
+    font-weight: bold;
+}
+
+#voice-container {
+    margin-top: 15px;
+}
+
+#select-voice {
+    margin-top: 5px;
+    display: inline-block;
+}
+
+#speed-label {
+    margin-top: 25px;
+    margin-left: 15px;
+    font-weight: bold;    
+}
+
+#speed-container {
+    margin-top: 25px;
+}
+
+#select-speed {
+    margin-top: 2px;
+}
+
+.button-row {
+    margin-top: 30px;
+    text-align: center;    
+}
+
+#stop-button {
+    margin-left: 0px;
+}
+
+#speak-button {
+    margin-left: 15px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#links {
+    text-align: center;
+}
+
+#links  a {
+    text-decoration: none;
+}
+
+#links li {
+    list-style: none;
+    display: inline;
+}
+
+#links img {
+    height: 40px;
+    width: 40px;
+    margin-right: 40px;
+}
+
+img:hover {
+    border-radius: 20%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center; 
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+
+.license {
+    position: auto;
+    margin: 0 auto;
+}
