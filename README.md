@@ -6,8 +6,10 @@ After 3 years Coralie is now very different from HTMLy, but it still tries to be
 It is used in Padirac Innovation website: https://padiracinnovation.org/News/
 
 What attracted me to HTMLy initialy was the flat-file usage as I strongly dislike SQL and insecurities created by having another server on my VPS.
-HTMLy looks much simpler than Wordpress, so it might seduce as at first look, one person should be able to master the source code.
-Yet 3 years of using HTMLy shown that debugging or extending HTMLy is not a fun activity. HTMLy didn't changed so much since it was published in 2013, it's a great example of spaghetti code and bugs had even been introduced in it in recent years.
+HTMLy looks much simpler than Wordpress, so it may appeal because at first glance one single person should be able to master the source code.
+Yet 3 years of using HTMLy has shown that debugging or extending HTMLy is no fun activity. 
+
+HTMLy didn't changed so much since it was published in 2013, it's a great example of spaghetti code and bugs had even been introduced in it in recent years.
 What's lacking most in HTMLy is a test and regression suite, Coralie is not better in this area.
 
 This motivated me to develop Coralie. Coralie has a flat file database. It is developed to run on a VPS and Apache/PHP as host.
