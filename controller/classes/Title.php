@@ -6,14 +6,9 @@
  * @author jplr
  */
 class Title {
-//    public $md;
-//    public $url;
-    public $value;
-//    public $body ;
-//    public $description;
-//    public $file;
+    public string $value;
     
-    public function __construct($val) {
+    public function __construct(string $val) {
         $this->value = $val;
     }
     

@@ -20,7 +20,7 @@ if (!isset($_SESSION)) {
   PHP_SESSION_ACTIVE if sessions are enabled, and one exists.
  */
 
-function is_logged() {
+function is_logged():bool {
     if (session_status() != PHP_SESSION_ACTIVE) {
         return false;
     }

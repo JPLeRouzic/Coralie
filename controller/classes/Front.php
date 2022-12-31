@@ -6,7 +6,7 @@
  * @author jplr
  */
 class Front {
-    public $url;
-    public $title;
-    public $body ;
+    public string $url;
+    public string $title;
+    public string $body ;
 }

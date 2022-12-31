@@ -144,7 +144,9 @@ require_once 'model/config.php';
 
 require_once 'views/admin/admin.php';
 require_once 'views/theme/breadcrumb.php';
+require_once 'views/theme/author.php';
 require_once 'views/theme/tag_bc.php';
+require_once 'views/theme/copyright.php';
 
 require_once 'model/staticPages/functions.php';
 require_once 'model/staticPages/mainStaticPages.php';
@@ -155,9 +157,6 @@ require_once 'model/posts/posts.php';
 require_once 'model/posts/clean_URL_post.php';
 // Beware this script, if should be the last one,
 require_once 'model/staticPages/static_pages.php';
-
-// Load the configuration file
-config('source', $config_file);
 
 // Set default timezone if it exists in config.ini
 if (config('timezone')) {
@@ -184,15 +183,9 @@ route('GET', '/search/:keyword', function ($keyword) {
     $tsearch = new Search();
     $tsearch->title = $keyword;
     $vroot = rtrim(config('views.root'), '/');
-    $lt = $vroot . '/layout--search.html.php';
-    if (file_exists($lt)) {
-        $layout = 'layout--search';
-    } else {
-        $layout = '';
-    }
     if (!$posts || $page < 1) {
         // a non-existing page or no search result
-        render('404-search', array('title' => 'Search results not found! - ' . blog_title(), 'description' => 'Search results not found!', 'search' => $tsearch, 'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; No search results', 'canonical' => site_url(), 'bodyclass' => 'error-404-search', 'is_404search' => true,), $layout);
+        render('404-search', array('title' => 'Search results not found! - ' . blog_title(), 'description' => 'Search results not found!', 'search' => $tsearch, 'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; No search results', 'canonical' => site_url(), 'bodyclass' => 'error-404-search', 'is_404search' => true,));
         die;
     }
     $total = keyword_count($keyword);
@@ -203,7 +196,7 @@ route('GET', '/search/:keyword', function ($keyword) {
     } else {
         $pview = 'main';
     }
-    render($pview, array('title' => 'Search results for: ' . tag_i18n($keyword) . ' - ' . blog_title(), 'description' => 'Search results for: ' . tag_i18n($keyword) . ' on ' . blog_title() . '.', 'canonical' => site_url() . 'search/' . strtolower($keyword), 'page' => $page, 'posts' => $posts, 'search' => $tsearch, 'bodyclass' => 'in-search search-' . strtolower($keyword), 'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; Search results for: ' . tag_i18n($keyword), 'pagination' => has_pagination($total, $perpage, $page), 'is_search' => true,), $layout);
+    render($pview, array('title' => 'Search results for: ' . tag_i18n($keyword) . ' - ' . blog_title(), 'description' => 'Search results for: ' . tag_i18n($keyword) . ' on ' . blog_title() . '.', 'canonical' => site_url() . 'search/' . strtolower($keyword), 'page' => $page, 'posts' => $posts, 'search' => $tsearch, 'bodyclass' => 'in-search search-' . strtolower($keyword), 'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; Search results for: ' . tag_i18n($keyword), 'pagination' => has_pagination($total, $perpage, $page), 'is_search' => true,));
 }
 );
 

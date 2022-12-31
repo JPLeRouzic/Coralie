@@ -12,7 +12,7 @@ class Category {
     public string $title ;
     public string $description ;
 
-    public function __construct($category2) {
+    public function __construct(string $category2) {
         $this->title = $category2;
     }
 

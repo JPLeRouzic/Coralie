@@ -6,5 +6,5 @@
  * @author jplr
  */
 class Search {
-    public $title ;
+    public string $title ;
 }

@@ -8,7 +8,7 @@
  * Do not use extract() on untrusted data, like user input (e.g. $_GET, $_FILES).</p>
  */
 
-function render(string $view, array $locals = null, $layout_flag = true) {
+function render(string $view, mixed $locals = null):void {
     $uno = str_replace('?', '~', $_SERVER['REQUEST_URI']);
     str_replace('/', '#', $uno);
 
@@ -117,7 +117,7 @@ function render(string $view, array $locals = null, $layout_flag = true) {
      */
     $view_root = config('views.root');
     if ($view_root == null) {
-        error(500, "err_11: [views.root] is not set");
+        error('500', "err_11: [views.root] is not set");
     }
 
     /*
@@ -135,7 +135,7 @@ function render(string $view, array $locals = null, $layout_flag = true) {
      * ob_get_clean (the PHP buffer) will send the content of the buffer filled with the previous echo()
      * to dispatch's buffer
      */
-    add_content_stash(trim(ob_get_clean()));
+    add_content_stash(trim((string) ob_get_clean()));
 
     /*
      * We always use layout.html.php
@@ -150,12 +150,12 @@ function render(string $view, array $locals = null, $layout_flag = true) {
     if (config('generation.time') == 'true') {
         // Print how much time it took to generate the page (optional)
         ob_start();
-        $start = microtime();
+        $start = (int) microtime();
 
         // include template
         require $layout;
 
-        $finish = microtime();
+        $finish = (int) microtime();
         $total_time = round(($finish - $start), 4);
         echo "\n" . '<!-- Dynamic page generated in ' . $total_time . ' seconds. -->';
     } else {
@@ -171,5 +171,5 @@ function render(string $view, array $locals = null, $layout_flag = true) {
      * Get current buffer contents and delete current output buffer
      * This will output to the browser, the content of the buffer filled with the previous echo()
      */
-    echo trim(ob_get_clean());
+    echo trim((string) ob_get_clean());
 }

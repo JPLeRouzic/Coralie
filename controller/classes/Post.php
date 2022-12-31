@@ -8,6 +8,7 @@
 class Post {
 
     public Category $catg;
+    public Tag $tag;
     public string $url; // as in https://pad....org/News/content/users/admin/blog/english/post/
                         // url field is optional at creation, in this case the system choose one
     public string $file; // The place where it is stored as in "/website/News/content/users/admin/blog/english/post"

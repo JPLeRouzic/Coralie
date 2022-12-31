@@ -7,13 +7,13 @@
  */
 class Author {
 
-    public $url;
-    public $pseudo;
-    public $name;
-    public $about;
-    public $description;
+    public string $url;
+    public string $pseudo;
+    public string $name;
+    public string $about;
+    public string $description;
 
-    public function __construct($val) {
+    public function __construct(string $val) {
         $this->name = $val;
     }
 

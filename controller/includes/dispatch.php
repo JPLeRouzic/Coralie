@@ -19,7 +19,7 @@ error_reporting(E_ALL);
  *
  */
 
-function dispatch() {
+function dispatch():void {
     // Store requested URL in $path
     $path = $_SERVER['REQUEST_URI'];
 
@@ -34,7 +34,11 @@ function dispatch() {
     // Split string by 
     $parts = preg_split('/\?/', $path, -1, PREG_SPLIT_NO_EMPTY);
 
-    $uri1 = trim($parts[0], '/');
+    if ($parts != false) {
+        $uri1 = trim($parts[0], '/');
+    } else {
+        $uri1 = trim($path) ;
+    }
     $uri = strlen($uri1) ? $uri1 : 'index';
 
     //  * This will determine if the HTTP verb is a GET or a POST
@@ -45,7 +49,7 @@ function dispatch() {
     route($method, "/{$uri}");
 }
 
-function route(string $http_verb, string $pattern, $callback = null) {
+function route(string $http_verb, string $pattern, Callable $callback = null): void {
     // callback a map to route requests depending on their request type
     // FIXME $route_map will become very large with many posts, it should be cached
     static $route_map = array(
@@ -61,7 +65,7 @@ function route(string $http_verb, string $pattern, $callback = null) {
             header('Content-type: text/html; charset=utf-8');
             die();
         } else {
-            error(500, 'err_15: Only HEAD, GET and POST are supported');
+            error('500', 'err_15: Only HEAD, GET and POST are supported');
         }
     }
     // $method is GET or POST 
@@ -88,9 +92,6 @@ function route(string $http_verb, string $pattern, $callback = null) {
                 continue;
             }
 
-            // call middleware
-//            middleware($pattern);
-
             // construct the params for the callback
             $keys1 = array();
             array_shift($vals); // FIXME type incompatible with declaration
@@ -104,11 +105,6 @@ function route(string $http_verb, string $pattern, $callback = null) {
                     array_push($argv, trim(urldecode($vals[$id])));
                 }
             }
-
-            /* call filters if we have symbols
-            if (count($keys)) {
-                filter(array_values($keys), $vals);
-            } */
 
             // if cb found, invoke it
             if (is_callable($obj['cb'])) {
@@ -128,7 +124,7 @@ function route(string $http_verb, string $pattern, $callback = null) {
  * have matches for each of the groups in the expression.
  */
 
-function route_to_regex(string $route1) {
+function route_to_regex(string $route1): string {
     // Perform a regular expression search and replace using a callback
     $route = preg_replace_callback(
             '@:[\w]+@i',
@@ -139,5 +135,3 @@ function route_to_regex(string $route1) {
             $route1);
     return '@^' . rtrim($route, '/') . '$@i';
 }
-
-

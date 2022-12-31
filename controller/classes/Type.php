@@ -7,9 +7,9 @@
  */
 class Type {
 
-    public $value;
+    public string $value;
 
-    public function __construct($val) {
+    public function __construct(string $val) {
         $this->value = $val;
     }
 

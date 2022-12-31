@@ -4,7 +4,7 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
 // Add content to the dispatch's output buffer
-function add_content_stash($value) {
+function add_content_stash(string $value):string {
     // Add content (usually a post) to stash()
     $uno = stash('$content$', true, $value);
     return $uno;
@@ -15,7 +15,7 @@ function add_content_stash($value) {
  * Usually it is sent to the browse via an "echo get_content_stash() in views/.../layout.html.php
  */
 
-function get_content_stash() {
+function get_content_stash():string {
     // Get the content (usually a post) from stash()
     $uno = stash('$content$', false, null);
     return $uno;
@@ -30,7 +30,7 @@ function get_content_stash() {
  * array(1) { ["$content$"]=> string(1075) "..." }
  */
 
-function stash(string $name, bool $add, string $value = null) {
+function stash(string $name, bool $add, string $value = null):string {
     static $_stash = array();
 
     if ($add === false) {

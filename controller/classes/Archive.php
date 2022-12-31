@@ -7,9 +7,9 @@
  */
 class Archive {
 
-    public $title;
+    public string $title;
 
-    public function __construct($val) {
+    public function __construct(string $val) {
         $this->title = $val;
     }
 
