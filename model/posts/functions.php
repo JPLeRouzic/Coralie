@@ -26,13 +26,10 @@
 
 function get_post_unsorted(): array {
     $sorted1 = array();
-    $_dfolder = array();
 
-    if (empty($_dfolder)) {
-// content/users/admin/blog/english/post
-// files unsorted
-        $sorted1 = glob('content/users/*/blog/*/post/*.md', GLOB_NOSORT);
-    }
+    // content/users/admin/blog/english/post
+    // files unsorted
+    $sorted1 = glob('content/users/*/blog/*/post/*.md', GLOB_NOSORT);
 
     $_sorted = prepare_v($sorted1);
 
@@ -53,12 +50,9 @@ function get_post_unsorted(): array {
 
 function get_posts_sorted(): array {
     $sorted1 = array();
-    $_dfolder = array();
 
-    if (empty($_dfolder)) {
-// content/users/admin/blog/english/post
-        $sorted1 = glob('content/users/*/blog/*/post/*.md', GLOB_NOSORT);
-    }
+    // content/users/admin/blog/english/post
+    $sorted1 = glob('content/users/*/blog/*/post/*.md', GLOB_NOSORT);
 
     $unsorted = prepare_v($sorted1);
 
@@ -109,6 +103,30 @@ function prepare_v(array $sorted1): array {
 
 // Find current post by year, month and name, previous, and next.
 // Return an array of posts (previous, current, next)
+function find_post_name(string $name): array|null {
+    $posts = get_posts_sorted();
+
+    foreach ($posts as $index => $v) {
+
+        $arr = explode('_', $v['basename']);
+        /*
+         * array(3) { 
+         * [0]=> string(19) "2022-11-23-18-53-32" 
+         * [1]=> string(9) "alzheimer" 
+         * [2]=> string(97) "synthesis-of-andrographolide-triazolyl-alzheimers-disease.md" }
+         */
+        if (
+                isset($arr[2]) && (
+                //strtolower($arr[1]) === strtolower($name . '.md') ||
+                strtolower($arr[2]) === strtolower($name . '.md')
+                )
+        ) {
+            return supressit($posts, $index);
+        }
+    }
+    return null;
+}
+
 function find_posts(string $year, string $month, string $name): array|null {
     $posts = get_posts_sorted();
 
@@ -129,49 +147,53 @@ function find_posts(string $year, string $month, string $name): array|null {
                 )
                 )
         ) {
+            return supressit($posts, $index);
+        }
+    }
+    return null;
+}
+
+function supressit(&$posts, &$index): array {
 
 // We found our post
 // Use the get_post method to return a properly parsed object
 // It returns one Post object which is at $index in the array of string $posts[] 
-            $arV = $posts[$index]; // current post
-            $ar = get_post($arV);
-            
-            // Prepare $pr and $nx
-            $pr = new Post() ;
-            $nx = new Post() ;
+    $arV = $posts[$index]; // current post
+    $ar = get_post($arV);
+
+    // Prepare $pr and $nx
+    $pr = new Post();
+    $nx = new Post();
 //
 // Getting the keys of $arr using array_keys() function
-            $keys = array_keys($posts);
-            $size = count($posts);
-            for ($x = 0; $x < $size; $x++) {
-                if ($keys[$x] == $index) {
-                    if (isset($keys[$x + 1])) {
-                        $nxV = $posts[$keys[$x + 1]]; // Next post
-                        $nx = get_post($nxV);
-                    }
-                    if (isset($keys[$x - 1])) {
-                        $prV = $posts[$keys[$x - 1]]; // Previous post
-                        $pr = get_post($prV);
-                    }
-                    break;
-                }
+    $keys = array_keys($posts);
+    $size = count($posts);
+    for ($x = 0; $x < $size; $x++) {
+        if ($keys[$x] == $index) {
+            if (isset($keys[$x + 1])) {
+                $nxV = $posts[$keys[$x + 1]]; // Next post
+                $nx = get_post($nxV);
             }
-
-            /*
-             * array(3) { 
-             * ["basename"]=> string(191) "2022-11-20-18-43-17_parkinson_effects-of-trihexyphenidyl.md" 
-             * ["dirname"]=> string(37) "content/users/admin/blog/english/post" 
-             * ["date"]=> string(19) "2022-11-20-18-43-17" }
-             */
-
-            return array(
-                'current' => $ar,
-                'next' => $nx,
-                'prev' => $pr
-            );
+            if (isset($keys[$x - 1])) {
+                $prV = $posts[$keys[$x - 1]]; // Previous post
+                $pr = get_post($prV);
+            }
+            break;
         }
     }
-    return null;
+
+    /*
+     * array(3) { 
+     * ["basename"]=> string(191) "2022-11-20-18-43-17_parkinson_effects-of-trihexyphenidyl.md" 
+     * ["dirname"]=> string(37) "content/users/admin/blog/english/post" 
+     * ["date"]=> string(19) "2022-11-20-18-43-17" }
+     */
+
+    return array(
+        'current' => $ar,
+        'next' => $nx,
+        'prev' => $pr
+    );
 }
 
 // Return static page.
@@ -253,7 +275,7 @@ function get_static_sub_post($static, $sub_static) {
 
                 $post->views = get_views($post->file);
 
-                $post->description = get_content_tag("d", $content, get_description($post->description->value));  // FIXME type incompatible with declaration
+                $post->description = new Desc(get_content_tag("d", $content, get_description($post->description->value)));
 // expected Desc, string provided
                 $tmp[] = $post;
             }
@@ -272,7 +294,7 @@ function get_count(string $var, string $str): int {
     foreach ($posts as $index => $v) {
         $arr = explode('_', $v[$str]);
         $url = $arr[0];
-        if (stripos($url, "$var") !== false) {
+        if (stripos($url, $var) !== false) {
             $tmp[] = $v;
         }
     }
@@ -297,10 +319,10 @@ function get_post_name(string $name) {
         header("location: $redir", TRUE, 301);
     }
 
-    $post = find_posts(null, null, $name);
+    $post = find_post_name($name);
 
-    $prev = new Post('');
-    $next = new Post('');
+    $prev = new Post();
+    $next = new Post();
     $pview = '';
     $author = '';
     $layout = '';
@@ -314,21 +336,12 @@ function get_post_name(string $name) {
         'p' => $current,
         'author' => $author->name,
         'bodyclass' => 'in-post category-' . $current->ct . ' type-' . $current->type->value,
-        'breadcrumb' => '<span itemscope="itemscope" itemtype="https://schema.org/BreadcrumbList">
-   <span itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem">
-   <a expr:href="' . site_url() . '" itemprop="url">
- <span itemprop="name">Home</span>
-  </a>
-  <span content="1" itemprop="position">
-   </span>
-</span>' . config('breadcrumb.home') . '</a></span> &#187; ' . $blog . '<span itemscope="itemscope" itemtype="https://schema.org/BreadcrumbList">
-   <span itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem">
-<a property="v:title" rel="v:url" href="' . $current->catg->title . '">' . $current->catg->title . '</span></span>' . ' &#187; ' . $current->value,
+        'breadcrumb' => get_breadcrumb($current),
         'prev' => has_prev($prev),
         'next' => has_next($next),
         'type' => $var,
         'is_post' => true,
-            ), $layout);
+    ));
 }
 
 // Edit blog post
@@ -340,7 +353,7 @@ function get_post_name_edit(string $name) {
         $role = user('role', $user);
 
         config('views.root', 'views/admin/views');
-        $post = find_posts(null, null, $name);
+        $post = find_post_name($name);
 
         if (!$post) {
             $post = find_draft($name);
@@ -442,7 +455,7 @@ function get_post_name_delete(string $name) {
         $role = user('role', $user);
 
         config('views.root', 'views/admin/views');
-        $post = find_posts(null, null, $name);
+        $post = find_post_name($name);
 
         if (!$post) {
             $post = find_draft($name);
@@ -453,7 +466,6 @@ function get_post_name_delete(string $name) {
 
         $current = $post['current'];
 
-//if ($user === $current->author || $role === 'admin') {
         if ((strcmp($user, $current->author->name) == 0) || (strcmp($role, 'admin') == 0) || ($role === 'superadmin')) {
             render('delete-post', array(
                 'title' => 'Delete post - ' . blog_title(),
@@ -462,14 +474,7 @@ function get_post_name_delete(string $name) {
                 'p' => $current,
                 'is_admin' => true,
                 'bodyclass' => 'delete-post',
-                'breadcrumb' => '<span itemscope="itemscope" itemtype="https://schema.org/BreadcrumbList">
-   <span itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem">
-   <a expr:href="' . site_url() . '" itemprop="url">
- <span itemprop="name">Home</span>
-  </a>
-  <span content="1" itemprop="position">
-   </span>
-</span>' . config('breadcrumb.home') . '</a></span> &#187; ' . $current->tag->tagb . ' &#187; ' . $current->value
+                'breadcrumb' => get_breadcrumb($current)
             ));
         } else {
             render('denied', array(
@@ -528,9 +533,9 @@ function get_year_month_name(string $year, string $month, string $name) {
         not_found('get_year_month_name 479');
     }
 
-    $current = new Post('');
-    $prev = new Post('');
-    $next = new Post('');
+    $current = new Post();
+    $prev = new Post();
+    $next = new Post();
     $pview = '';
     $author = '';
     $layout = '';
@@ -559,7 +564,7 @@ function get_year_month_name(string $year, string $month, string $name) {
         'next' => has_next($next),
         'type' => $var,
         'is_post' => true,
-            ), $layout);
+    ));
 }
 
 function duplicate_code_1(array &$post, Post &$current, Post &$prev, Post &$next,
@@ -762,22 +767,22 @@ function duplicate_code_8(array &$message, string &$oldfile, string &$title, str
         $type = 'is_post';
     }
 
-    if ($proper && !empty($title) && !empty($tag) && !empty($content) && !empty($image)) {
+    if ($proper && !empty($title1) && !empty($tag1) && !empty($content) && !empty($image)) {
         if (empty($url)) {
             $url = $title->value;
         }
         edit_content($title, $tag, $url, $content, $oldfile, $destination, $description, $dateTime, $image, $revertPost, $publishDraft, $category, 'image');
-    } else if ($proper && !empty($title) && !empty($tag) && !empty($content) && !empty($is_post)) {
+    } else if ($proper && !empty($title1) && !empty($tag1) && !empty($content) && !empty($is_post)) {
         if (empty($url)) {
             $url = $title->value;
         }
         edit_content($title, $tag, $url, $content, $oldfile, $destination, $description, $dateTime, null, $revertPost, $publishDraft, $category, 'post');
     } else {
         $message['error'] = '';
-        if (empty($title)) {
+        if (empty($title1)) {
             $message['error'] .= '<li>Title field is required.</li>';
         }
-        if (empty($tag)) {
+        if (empty($tag1)) {
             $message['error'] .= '<li>Tag field is required.</li>';
         }
         if (empty($content)) {

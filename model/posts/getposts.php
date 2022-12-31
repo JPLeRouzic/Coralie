@@ -200,8 +200,8 @@ function create_post(array $v, $arr, $replaced) {
     $post->tag->related = new Tag(rtrim($arr[1], ','));
 
     $more = explode('<!--more-->', $content);
-    if (isset($more['1'])) {
-        $content = $more['0'] . '<a id="more"></a><br>' . "\n\n" . '<!--more-->' . $more['1'];
+    if (isset($more[1])) {
+        $content = $more[0] . '<a id="more"></a><br>' . "\n\n" . '<!--more-->' . $more[1];
     }
 
     /*
@@ -210,7 +210,7 @@ function create_post(array $v, $arr, $replaced) {
     if (config('views.counter') == 'true') {
         $post->views = get_views($post->file);
     } else {
-        $post->views = 'int to be defined';
+        $post->views = 0 ;
     }
 
     /*
