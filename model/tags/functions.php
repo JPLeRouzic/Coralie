@@ -137,14 +137,7 @@ function from_tag_to_tagger($title) {
     // The static page URL
     $tager->url = site_url() . 'tag/' . $title;
 
-    /*
-      $tager->md = str_replace('.md', '', $url);
-      $tager->file = $tag;
-      $tager->slug = 'tag slug to be done';
-      public string $count; // How many posts are tagged with this tag
-      public Tag $related; // Tag of related posts
-     */
-    $tager->tag = 'tag to be done';
+    $tager->tagb = ''; // Tag of related posts
 
     $tager->tagb = 'tagb to be done';
 
@@ -176,14 +169,7 @@ function from_tagpath_to_tagger($tag) {
     // The static page URL
     $tager->url = site_url() . 'tag/' . $title;
 
-    /*
-      $tager->md = str_replace('.md', '', $url);
-      $tager->file = $tag;
-      $tager->slug = 'tag slug to be done';
-      public string $count; // How many posts are tagged with this tag
-      public Tag $related; // Tag of related posts
-     */
-    $tager->tag = 'tag to be done';
+    $tager->tagb = ''; // Tag of related posts
 
     $tager->tagb = 'tagb to be done';
 
@@ -253,8 +239,8 @@ function tag_list(bool $custom = null) {
     echo '<ul>';
 
     foreach ($cat as $k => $v) {
-        if (get_tagcount($v['0']) !== 0) {
-            echo '<li><a href="' . site_url() . 'tags/' . $v['0'] . '">' . $v['1'] . '</a></li>';
+        if (get_tagcount($v[0]) !== 0) {
+            echo '<li><a href="' . site_url() . 'tags/' . $v[0] . '">' . $v[1] . '</a></li>';
         }
     }
 

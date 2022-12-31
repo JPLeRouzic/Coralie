@@ -23,8 +23,7 @@ function get_static_sub_pages(string $static = null): array
         $_sub_page = unserialize(file_get_contents($url));
     }
     if ($static != null) {
-        $stringLen = strlen($static);
-        return array_filter($_sub_page, function ($sub_page) use ($static, $stringLen) {
+        return array_filter($_sub_page, function ($sub_page) use ($static) {
             $x = explode("/", $sub_page);
             if ($x[count($x) - 2] == $static) {
                 return true;

@@ -27,6 +27,7 @@
 function trending_posts(int $count = 20) {
     $_views = array();
     $tmp = array();
+    $trendingviews = array() ;
 
     if (config('views.counter') == 'true') {
 

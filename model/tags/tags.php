@@ -175,16 +175,6 @@ function get_show_tag(string $tagS) {
 
     $vroot = rtrim(config('views.root'), '/');
 
-    $lt = $vroot . '/layout--tag--' . strtolower($tag->value) . '.html.php';
-    $ls = $vroot . '/layout--tag.html.php';
-    if (file_exists($lt)) {
-        $layout = 'layout--tag--' . strtolower($tag->value);
-    } else if (file_exists($ls)) {
-        $layout = 'layout--tag';
-    } else {
-        $layout = '';
-    }
-
     $pv = $vroot . '/main--tag--' . strtolower($tag->value) . '.html.php';
     $ps = $vroot . '/main--tag.html.php';
     if (file_exists($pv)) {
@@ -206,7 +196,7 @@ function get_show_tag(string $tagS) {
         'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; Posts tagged: ' . tag_i18n($tag->value),
         'pagination' => has_pagination($total, $perpage, $page),
         'is_tag' => true,
-            ), $layout);
+            ));
 }
 
 // Show edit the tag page
@@ -216,7 +206,7 @@ function get_tag_edit(string $tag) {
 
         config('views.root', 'views/admin/views');
         $tagpost = get_tag_info($tag);
-        if ((!$tagpost) || ($tagpost->value == 'none')) {
+        if ($tagpost->value == 'none') {
             not_found('get_tag_edit');
         }
 
@@ -298,10 +288,6 @@ function get_tag_delete(string $tag) {
 
         config('views.root', 'views/admin/views');
         $post = get_tag_info($tag);
-
-        if (!$post) {
-            not_found('post_tag_edit');
-        }
 
         render('delete-tag', array(
             'title' => 'Delete tag - ' . blog_title(),

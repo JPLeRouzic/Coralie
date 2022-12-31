@@ -22,13 +22,6 @@ route('GET', '/search/:keyword', function ($keyword) {
     
     $vroot = rtrim(config('views.root'), '/');
     
-    $lt = $vroot . '/layout--search.html.php'; 
-    if (file_exists($lt)) {
-        $layout = 'layout--search';
-    } else {
-        $layout = '';
-    }
-
     if (!$posts || $page < 1) {
         // a non-existing page or no search result
         render('404-search', array(
@@ -40,7 +33,7 @@ route('GET', '/search/:keyword', function ($keyword) {
             'canonical' => site_url(),
             'bodyclass' => 'error-404-search',
             'is_404search' => true,
-        ), $layout);
+        ));
         die;
     }
 
@@ -64,7 +57,7 @@ route('GET', '/search/:keyword', function ($keyword) {
         'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; Search results for: ' . tag_i18n($keyword),
         'pagination' => has_pagination($total, $perpage, $page),
         'is_search' => true,
-    ), $layout);
+    ));
 });
 
 // The JSON API

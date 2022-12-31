@@ -9,13 +9,6 @@ error_reporting(E_ALL);
  */
 
 function from(array $source, string $name) {
-    if (is_array($name)) {
-        $data = array();
-        foreach ($name as $k) {
-            $data[$k] = isset($source[$k]) ? $source[$k] : null;
-        }
-        return $data;
-    }
     return isset($source[$name]) ? $source[$name] : null;
 }
 
@@ -87,13 +80,13 @@ function duplicate_code_5(Post $post) {
 
 // Helper function to determine whether
 // to show the pagination buttons
-function has_pagination(string $total, int $perpage, int $page = 1): array {
+function has_pagination(int $total, int $perpage, int $page = 1): array {
     if (!$total) {
         $total = count(get_post_unsorted());
     }
     $totalPage = ceil($total / $perpage);
     $number = 'Page ' . $page . ' of ' . $totalPage;
-    $pager = get_pagination($page, $total, $perpage, 2);
+    $pager = get_pagination($page, $total, $perpage);
     return array(
         'prev' => $page > 1,
         'next' => $total > $page * $perpage,
@@ -211,18 +204,6 @@ function tab(Post $p) {
     }
 }
 
-// Copyright
-function copyright() {
-    $blogcp = blog_copyright();
-    $credit = '<a href="/News/2019/05/notre-histoire" target="_blank">Notre histoire</a>';
-
-    if (!empty($blogcp)) {
-        return $copyright = '<p>' . $blogcp . '</p><p>' . $credit . '</p>';
-    } else {
-        return $credit = '<p>' . $credit . '</p>';
-    }
-}
-
 // Get the title from file
 function get_title_from_file(string $v): string {
     // Get the contents from file and convert it to HTML
@@ -300,15 +281,15 @@ function replace_href(string $string, Tag $tag, string $class, string $url) {
     $doc = new DOMDocument();
     $doc->loadHTML($string);
     // Then select all anchor tags
-    $all_anchor_tags = $doc->getElementsByTagName($tag->value);
-    foreach ($all_anchor_tags as $_tag) {
-        if ($_tag->getAttribute('class') == $class) {
-            // If match class get the href value
-            $old = $_tag->getAttribute('href');
-            $uno = mb_convert_encoding($old, 'ISO-8859-1', 'UTF-8');
-            $new = $_tag->setAttribute('href', $url . $uno); //FIXME $new unused?
-        }
-    }
+//    $all_anchor_tags = $doc->getElementsByTagName($tag->value);
+//    foreach ($all_anchor_tags as $_tag) {
+//        if ($_tag->getAttribute('class') == $class) {
+//            // If match class get the href value
+//            $old = $_tag->getAttribute('href');
+//            $uno = mb_convert_encoding($old, 'ISO-8859-1', 'UTF-8');
+//            $new = $_tag->setAttribute('href', $url . $uno); //FIXME $new unused?
+//        }
+//    }
     $duo = mb_convert_encoding($doc->saveHTML($doc->documentElement), 'ISO-8859-1', 'UTF-8');
     return preg_replace('~<(?:!DOCTYPE|/?(?:html|head|body))[^>]*>\s*~i', '', $duo);
 }

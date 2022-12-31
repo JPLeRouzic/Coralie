@@ -20,14 +20,6 @@ function blog_copyright(): string {
     return config('blog.copyright');
 }
 
-// Return author info. Deprecated
-function authorinfo(string $name = null, string $about = null): string {
-    if (config('author.info') == 'true') {
-        return '<div class="author-info"><h4>by <strong>' . $name . '</strong></h4>' . $about . '</div>';
-    }
-}
-
-
 // Strip html comment 
 function remove_html_comments(string $content): string  {
     $patterns = array('/(\s|)<!--t(.*)t-->(\s|)/', '/(\s|)<!--d(.*)d-->(\s|)/', '/(\s|)<!--tag(.*)tag-->(\s|)/', '/(\s|)<!--image(.*)image-->(\s|)/', '/(\s|)<!--video(.*)video-->(\s|)/', '/(\s|)<!--audio(.*)audio-->(\s|)/', '/(\s|)<!--link(.*)link-->(\s|)/', '/(\s|)<!--quote(.*)quote-->(\s|)/');

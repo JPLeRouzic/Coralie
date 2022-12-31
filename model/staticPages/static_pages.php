@@ -297,19 +297,6 @@ function get_static_sub(string $static, string $sub) {
 
     $vroot = rtrim(config('views.root'), '/');
 
-    $lt = $vroot . '/layout--' . strtolower($static) . '--' . strtolower($sub) . '.html.php';
-    $ls = $vroot . '/layout--' . strtolower($static) . '.html.php';
-    $lf = $vroot . '/layout--static.html.php';
-    if (file_exists($lt)) {
-        $layout = 'layout--' . strtolower($static) . '--' . strtolower($sub);
-    } else if (file_exists($ls)) {
-        $layout = 'layout--' . strtolower($static);
-    } else if (file_exists($lf)) {
-        $layout = 'layout--static';
-    } else {
-        $layout = '';
-    }
-
     $pv = $vroot . '/static--' . strtolower($static) . '--' . strtolower($sub) . '.html.php';
     $ps = $vroot . '/static--' . strtolower($static) . '.html.php';
     if (file_exists($pv)) {
@@ -329,7 +316,7 @@ function get_static_sub(string $static, string $sub) {
         'p' => $post,
         'type' => 'subPage',
         'is_subpage' => true,
-            ), $layout);
+            ));
 }
 
 // Edit the sub static page

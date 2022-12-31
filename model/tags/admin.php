@@ -5,14 +5,14 @@ function add_tag(string $title, string $url, string $content, string $descriptio
     $post_title = safe_html($title);
     $post_url = strtolower(preg_replace(array('/[^a-zA-Z0-9 \-\p{L}]/u', '/[ -]+/', '/^-|-$/'), array('', '-', ''), $url));
     $description = safe_html($description);
-    if ($description !== null) {
+    if ($description !== '') {
         $post_description = "\n<!--d " . $description . " d-->";
     } else {
         $post_description = "";
     }
     $post_content = '<!--t ' . $post_title . ' t-->' . $post_description . "\n\n" . $content;
 
-    if (!empty($post_title) && !empty($post_url) && !empty($post_content)) {
+    if (!empty($post_title) && !empty($post_url)) {
 
         $post_content = stripslashes($post_content);
 
@@ -46,7 +46,7 @@ function edit_tag(Title $title, string $url, string $content, string $oldfile,
         $post_description = '';
     }
     $post_content = '<!--t ' . $post_title . ' t-->' . $post_description . "\n\n" . $content;
-    if (!empty($post_title) && !empty($post_url) && !empty($post_content)) {
+    if (!empty($post_title) && !empty($post_url)) {
         $post_content = stripslashes($post_content);
 
         $newfile = $dir . '/' . $post_url . '.md';

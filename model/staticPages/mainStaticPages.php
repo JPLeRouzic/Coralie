@@ -81,16 +81,6 @@ function get_static($static) {
 
         $vroot = rtrim(config('views.root'), '/');
 
-        $lt = $vroot . '/layout--' . strtolower($static) . '.html.php';
-        $ls = $vroot . '/layout--static.html.php';
-        if (file_exists($lt)) {
-            $layout = 'layout--' . strtolower($static);
-        } else if (file_exists($ls)) {
-            $layout = 'layout--static';
-        } else {
-            $layout = '';
-        }
-
         $pv = $vroot . '/static--' . strtolower($static) . '.html.php';
         if (file_exists($pv)) {
             $pview = 'static--' . strtolower($static);
@@ -107,6 +97,6 @@ function get_static($static) {
             'p' => $post,
             'type' => 'staticPage',
             'is_page' => true,
-                ), $layout);
+                ));
     }
 }

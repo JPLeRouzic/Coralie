@@ -28,7 +28,7 @@ function get_admin_popular() {
 
             $posts = popular_posts($perpage);
 
-            $total = '';
+            $total = count($posts);
 
             if (empty($posts) || $page < 1) {
 

@@ -119,7 +119,7 @@ function config($key, $value = null) {
             $value = 'config/config.ini';
             $_config = parse_ini_file($value, true);
         }
-    } elseif (isset($key) && isset($value)) {
+    } elseif (isset($key) && ($value != null)) {
         // Change the value of the key (only) in memory
         $_config[$key] = $value;
     }
