@@ -22,13 +22,6 @@ function frontpage_imp() {
 
     $vroot = rtrim(config('views.root'), '/');
 
-    $lt = $vroot . '/layout--front.html.php';
-    if (file_exists($lt)) {
-        $layout = 'layout--front';
-    } else {
-        $layout = '';
-    }
-
     // For static pages
     if (config('static.frontpage') == 'true') {
 
@@ -58,7 +51,7 @@ function frontpage_imp() {
             'p' => $front,
             'type' => 'is_frontpage',
             'is_front' => true,
-                ), $layout);
+        ));
     } else {
         // For non-static pages
         $page1 = from($_GET, 'page');
@@ -67,7 +60,7 @@ function frontpage_imp() {
 
         $posts = get_posts(null, $page, $perpage);
 
-        $total = '';
+        $total = count($posts);
 
         $tl = strip_tags(blog_tagline());
 
@@ -94,7 +87,7 @@ function frontpage_imp() {
                 'bodyclass' => 'no-posts',
                 'type' => 'is_frontpage',
                 'is_front' => true,
-                    ), $layout);
+            ));
 
             die;
         }
@@ -114,6 +107,6 @@ function frontpage_imp() {
             'pagination' => has_pagination($total, $perpage, $page),
             'type' => 'is_frontpage',
             'is_front' => true,
-                ), $layout);
+        ));
     }
 }

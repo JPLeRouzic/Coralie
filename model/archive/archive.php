@@ -45,14 +45,7 @@ route('GET', '/archive/:req', function ($req) {
     }
     
     $vroot = rtrim(config('views.root'), '/');
-    
-    $lt = $vroot . '/layout--archive.html.php'; 
-    if (file_exists($lt)) {
-        $layout = 'layout--archive';
-    } else {
-        $layout = '';
-    }
-    
+        
     $pv = $vroot . '/main--archive.html.php'; 
     if (file_exists($pv)) {
         $pview = 'main--archive';
@@ -71,6 +64,6 @@ route('GET', '/archive/:req', function ($req) {
         'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; Archive for: ' . $timestamp,
         'pagination' => has_pagination($total, $perpage, $page),
         'is_archive' => true,
-    ), $layout);
+    ));
 });
 

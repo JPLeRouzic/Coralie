@@ -34,16 +34,6 @@ function authorpage_imp(string $name) {
 
     $vroot = rtrim(config('views.root'), '/');
 
-    $lt = $vroot . '/layout--profile--' . strtolower($name) . '.html.php';
-    $ls = $vroot . '/layout--profile.html.php';
-    if (file_exists($lt)) {
-        $layout = 'layout--profile--' . strtolower($name);
-    } else if (file_exists($ls)) {
-        $layout = 'layout--profile';
-    } else {
-        $layout = '';
-    }
-
     $pv = $vroot . '/profile--' . strtolower($name) . '.html.php';
     if (file_exists($pv)) {
         $pview = 'profile--' . strtolower($name);
@@ -65,7 +55,7 @@ function authorpage_imp(string $name) {
             'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; Profile for: ' . $author->name,
             'pagination' => has_pagination($total, $perpage, $page),
             'is_profile' => true,
-                ), $layout);
+                ));
         die;
     }
 
@@ -82,5 +72,5 @@ function authorpage_imp(string $name) {
         'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; Profile for: ' . $author->name,
         'pagination' => has_pagination($total, $perpage, $page),
         'is_profile' => true,
-            ), $layout);
+            ) );
 }

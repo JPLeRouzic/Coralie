@@ -21,12 +21,11 @@ $config = array(
     "desc"=>"Open Source Bootstrap themed forum for php 5.6+ - Flat file, no Database required!", //Description for the site in html (Not displayed on page, but in search engines.)
     "home"=> "./", //Home page URL. to go back to home of forums: "./";
     //Data folders must NOT be the same folders, please follow a similar structure to what I have below. (/path/to/data/users & /path/to/data/threads)
-//    "user_data" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/users", //Folder to store user data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
-    "user_data" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/users", //Folder to store user data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
-//    "thread_data" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/threads", //Folder to store thread data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
-    "thread_data" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/threads", //Folder to store thread data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
-//    "log" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/forums.log",
-    "log" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/forums.log",
+//    "user_data" => "content/comments/forum_data/users", //Folder to store user data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
+    "user_data" => "content/comments/forum_data/users", //Folder to store user data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
+    "thread_data" => __DIR__ . '/../../content/comments/forum_data/threads', //Folder to store thread data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
+//    "log" => "content/comments/forum_data/forums.log",
+    "log" => "content/comments/forum_data/forums.log",
     "lang" => "auto", // Available : auto, en (You can translate a language on the github)
     //Captcha Settings for REGISTRATION page
     "captcha" => array( //Configure Captcha settings for registration.

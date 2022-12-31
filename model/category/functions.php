@@ -76,9 +76,8 @@ function get_category_info(string $category): Category {
                 return $catgr;
             }
         }
-    } else {
-        return default_category();
     }
+    return default_category();
 }
 
 // Return info about categories in an array
@@ -95,7 +94,7 @@ function get_categories_info(): array {
 
         // Search for our category in all categories
         foreach ($catgries as $index => $v) {
-             // Get the contents and convert it to HTML
+            // Get the contents and convert it to HTML
             $content = file_get_contents($v);
             $category = get_content_tag('t', $content);
             $catgr = found_our_category($category, $v);
@@ -132,8 +131,8 @@ function found_our_category(string $category, string $v): Category {
     $catgr->title = get_content_tag('t', $content, $category);
 
     $catgr->description = get_content_tag("d", $content, $category);
-    
-    return $catgr ;
+
+    return $catgr;
 }
 
 // Return default category
@@ -145,7 +144,6 @@ function default_category(): Category {
     $cat->description = 'Topics that don&#39;t need a category, or don&#39;t fit into any other existing category.';
 
     $cat->file = 'hard_coded value';
-    $cat->categoryb = 'Uncategorized categoryb to be done';
 
     return $cat;
 }

@@ -103,7 +103,7 @@ function add_category_post() {
         if (empty($title)) {
             $message['error'] .= '<li>Title field is required.</li>';
         }
-        if (empty($content)) {
+        if ($content === '') {
             $message['error'] .= '<li>Content field is required.</li>';
         }
         if (!$proper) {
@@ -179,28 +179,6 @@ function show_posts_in_category(string $category) {
         not_found('show_posts_in_category 179');
     }
 
-    $vroot = rtrim(config('views.root'), '/');
-
-    $lt = $vroot . '/layout--category--' . strtolower($category) . '.html.php';
-    $ls = $vroot . '/layout--category.html.php';
-    if (file_exists($lt)) {
-        $layout = 'layout--category--' . strtolower($category);
-    } else if (file_exists($ls)) {
-        $layout = 'layout--category';
-    } else {
-        $layout = '';
-    }
-
-    $pv = $vroot . '/main--category--' . strtolower($category) . '.html.php';
-    $ps = $vroot . '/main--category.html.php';
-    if (file_exists($pv)) {
-        $pview = 'main--category--' . strtolower($category);
-    } else if (file_exists($ps)) {
-        $pview = 'main--category';
-    } else {
-        $pview = 'main';
-    }
-
     $catgry = get_category_info($category);
     /*
      * object(Category)#142 (6) { 
@@ -215,7 +193,7 @@ function show_posts_in_category(string $category) {
      * }
      */
 
-    render($pview, array(
+    render('layout', array(
         'title' => $catgry->title . ' - ' . blog_title(),
         'description' => $catgry->description,
         'canonical' => $catgry->url,
@@ -223,10 +201,10 @@ function show_posts_in_category(string $category) {
         'posts' => $posts,
         'category' => $catgry->title,
         'bodyclass' => 'in-category category-' . strtolower($category),
-        'breadcrumb' => '<a href="' . site_url() . '">' . config('breadcrumb.home') . '</a> &#187; ' . $catgry->title,
+        'breadcrumb' => get_breadcrumb_cat($catgry),
         'pagination' => has_pagination($total, $perpage, $page),
         'is_category' => true,
-            ), $layout);
+            ) );
 }
 
 // Edit the information for this category 
@@ -237,10 +215,6 @@ function edit_category_get(string $category) {
 
         config('views.root', 'views/admin/views');
         $catgr = get_category_info($category);
-
-        if (!$catgr) {
-            not_found('edit_category_get 242');
-        }
 
         render('edit-category', array(
             'title' => 'Edit category - ' . blog_title(),
@@ -286,7 +260,7 @@ function edit_category_post() {
         if (empty($title)) {
             $message['error'] .= '<li>Title field is required.</li>';
         }
-        if (empty($content)) {
+        if ($content === '') {
             $message['error'] .= '<li>1 Content field is required.</li>';
         }
         if (!$proper) {
@@ -319,10 +293,6 @@ function category_delete_get(string $category) {
 
         config('views.root', 'views/admin/views');
         $catgry = get_category_info($category);
-
-        if (!$catgry) {
-            not_found('category_delete_get 324');
-        }
 
         render('delete-category', array(
             'title' => 'Delete category - ' . blog_title(),

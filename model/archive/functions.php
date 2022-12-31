@@ -21,7 +21,7 @@ function get_archive(string $req, int $page, int $perpage): array {
 }
 
 // Return an archive list, categorized by year and month.
-function archive_list() {
+function archive_list():void {
 
     $dir = "content/widget";
     $filename = "content/widget/archive.cache";
@@ -49,7 +49,7 @@ function archive_list() {
 
                 // Replaced string
                 $str = $arr[0];
-                $replaced = substr($str, 0, strrpos($str, '/')) . '/';
+                $replaced = substr($str, 0, strrpos($str, '/')) . '/' ;
 
                 $date = str_replace($replaced, '', $arr[0]);
                 $data = explode('-', $date);
@@ -58,15 +58,26 @@ function archive_list() {
 
             foreach ($col as $row) {
 
-                $y = $row['0'];
-                $m = $row['1'];
+                if (isset($row[0])) {
+                    $y = $row[0];
+                } else {
+                    $y = '';
+                }
+                if (isset($row[1])) {
+                    $m = $row[1];
+                } else {
+                    $m = '';
+                }
                 $by_year[$y][] = $m;
             }
 
             $ar = serialize($by_year);
             file_put_contents($filename, print_r($ar, true));
         } else {
-            $by_year = unserialize(file_get_contents($filename));
+            $uno = file_get_contents($filename);
+            if ($uno != false) {
+                $by_year = unserialize($uno);
+            }
         }
 
         # Most recent year first
@@ -100,7 +111,12 @@ EOF;
             echo '<ul class="month">';
 
             foreach ($by_month as $month => $count) {
-                $name = date('F', mktime(0, 0, 0, $month, 1, 2010));
+                $uno = mktime(0, 0, 0, $month, 1, 2010);
+                if ($uno != false) {
+                    $name = date('F', $uno);
+                } else {
+                    $name = date('F', 0);
+                }
                 echo '<li class="item"><a href="' . site_url() . 'archive/' . $year . '-' . $month . '">' . $name . '</a>';
                 echo ' <span class="count">(' . $count . ')</span></li>';
             }

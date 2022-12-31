@@ -90,7 +90,7 @@ function get_draft_posts() {
 }
 
 // Find draft.
-function find_draft($name) {
+function find_draft(string $name): array {
     $posts = get_draft_posts();
 
     foreach ($posts as $index => $v) {
@@ -102,6 +102,8 @@ function find_draft($name) {
             find_draft_aux($posts, $index);
         }
     }
+    // Nothing found, return an empty array
+    return array();
 }
 
 // Find draft by year/month/name.
@@ -116,7 +118,7 @@ function find_draft_full($year, $month, $name) {
           [2]=> string(24) "2022-04-29-22274496v1.md"
           }
          */
-        $uno = strpos($arr[0], "$year-$month") ;
+        $uno = strpos($arr[0], "$year-$month");
         if ($uno !== false &&
                 (
                 strtolower($arr[1]) === strtolower($name . '.md') ||
@@ -136,25 +138,24 @@ function find_draft_aux(&$posts, &$index) {
     $ar = get_posts($posts, $index + 1, 1);
     $pr = get_posts($posts, $index, 1);
     $nx = get_posts($posts, $index + 2, 1);
-    
-    if ($index == 0) {
-        if (isset($pr[0])) {
-            return array(
-                'current' => $ar[0],
-                'prev' => $pr[0]
-            );
-        } else {
-            return array(
-                'current' => $ar[0],
-                'prev' => null
-            );
-        }
-    } elseif (count($posts) == $index + 1) {
+
+    $prcount = count($pr);
+    $nxcount = count($nx);
+
+    if ($prcount == 0) {
+        // No previous post
         return array(
             'current' => $ar[0],
             'next' => $nx[0]
         );
+    } elseif ($nxcount == 0) {
+        // No next post
+        return array(
+            'current' => $ar[0],
+            'prev' => $pr[0]
+        );
     } else {
+        /* There are previous and nextposts */
         return array(
             'current' => $ar[0],
             'next' => $nx[0],

@@ -14,13 +14,13 @@ function add_content(Title $title, Tag $tag, string $url, string $content,
     // If it does not exist, 
     if (!isset($author)) {
         render('no-author', array(
-            'title' => blog_title() . $tagline,
+            'title' => blog_title() ,
             'description' => strip_tags(blog_description()),
             'canonical' => site_url(),
             'bodyclass' => 'no-author',
             'type' => 'is_frontpage',
             'is_front' => false,
-                ), $layout); // FIXME
+                )); 
 
         die;
     }
@@ -36,23 +36,17 @@ function add_content(Title $title, Tag $tag, string $url, string $content,
     $post_tagmd = rtrim($post_tagmd1, ',');
     $post_url = strtolower(preg_replace(array('/[^a-zA-Z0-9 \-\p{L}]/u', '/[ -]+/', '/^-|-$/'), array('', '-', ''), $url));
     $description = safe_html($description1);
-    if ($description !== null) {
+    if ($description1 !== null) {
         $post_description = "\n<!--d " . $description . " d-->";
     } else {
         $post_description = "";
     }
-    if ($tag->value !== null) {
         $valuemd = "\n<!--tag " . $post_tagmd . " tag-->";
-    } else {
-        $valuemd = "";
-    }
-    if ($media !== null) {
+
         $post_media = "\n<!--" . $type . " " . $post_media . " " . $type . "-->";
-    } else {
-        $post_media = "";
-    }
-    $post_content = "<!--t " . $post_title . " t-->" . $post_description . $valuemd . $post_media . "\n\n" . $content;
-    if (!empty($post_title) && !empty($post_tag) && !empty($post_url) && !empty($post_content)) {
+
+        $post_content = "<!--t " . $post_title . " t-->" . $post_description . $valuemd . $post_media . "\n\n" . $content;
+    if (!empty($post_title) && !empty($post_tag) && !empty($post_url)) {
         $post_content = stripslashes($post_content);
 
         /*
@@ -94,7 +88,7 @@ function add_content(Title $title, Tag $tag, string $url, string $content,
         if (file_exists($filerecent)) {
             $uno = file_get_contents($filerecent);
             $posts_recent = unserialize($uno);
-            $newpost = new Post($title);
+            $newpost = new Post();
             $newpost->tag = $tag;
             $newpost->url = $url;
             $newpost->body = $content;
@@ -146,24 +140,17 @@ function edit_content(Title $title, Tag $tag, string $url, string $content,
     $post_url = strtolower(preg_replace(array('/[^a-zA-Z0-9 \-\p{L}]/u', '/[ -]+/', '/^-|-$/'), array('', '-', ''), $url));
     $description = safe_html($description1->value);
 
-    if ($description !== null) {
+    if ($description1 !== null) {
         $post_description = "\n<!--d " . $description . " d-->";
     } else {
         $post_description = "";
     }
-    if ($tag->value !== null) {
-        $valuemd = "\n<!--tag " . $post_tagmd . " tag-->";
-    } else {
-        $valuemd = "";
-    }
-    if ($media !== null) {
+
+    $valuemd = "\n<!--tag " . $post_tagmd . " tag-->";
         $post_media = "\n<!--" . $type . " " . $post_media . " " . $type . "-->";
-    } else {
-        $post_media = "";
-    }
 
     $post_content = "<!--t " . $post_title . " t-->" . $post_description . $valuemd . $post_media . "\n\n" . $content;
-    if (!empty($post_title) && !empty($post_tag) && !empty($post_url) && !empty($post_content)) {
+    if (!empty($post_title) && !empty($post_tag) && !empty($post_url)) {
         $newfile = '';
         if (!empty($revertPost) || !empty($publishDraft)) {
             // It's either a post that must be either reverted as a draft, or updated

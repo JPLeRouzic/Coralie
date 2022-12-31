@@ -30,8 +30,7 @@ function admin_comments() {
 
 function admin_page_comments() {
     $config = array(
-//        "thread_data" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/threads", //Folder to store thread data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
-        "thread_data" => "/var/www/padiracinnovation.org/News/content/comments/forum_data/threads", //Folder to store thread data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
+        "thread_data" => __DIR__ . '/../../content/comments/forum_data/threads', //Folder to store thread data in, make sure to give proper permissions (0744) and the owner of the folder must be apache's user (Or nginx's user)
         "perPageThread" => 10 //Default reply amount to show in each thread (View mode)
     );
     if (is_logged()) {
@@ -82,8 +81,7 @@ function is_dir_empty($dir) {
 }
 
 function admin_user_comments($config, $post_id) {
-//    $discfilenm = '/var/www/padiracinnovation.org/News/content/comments/forum_data/threads/' . $post_id;
-    $discfilenm = '/var/www/padiracinnovation.org/News/content/comments/forum_data/threads/' . $post_id;
+    $discfilenm = __DIR__ . '/../../content/comments/forum_data/threads/' . $post_id;
     $post_content = file_get_contents($discfilenm);
     if(strcmp($post_content, "") == 0) {
         return ;

@@ -33,8 +33,6 @@ function comnt_view($thdata, $config, $post_id) {
         echo '<div class="alert alert-warning">' . "thread.locked" . '</div>';
     }
 
-    echo '</div>';
-
     /* get cookie to recognize eventual user
      * as we do not authenticate users, when an unauthenticated user clicks on "reply"
      * we set a cookie with a random name
@@ -70,7 +68,7 @@ function comnt_view($thdata, $config, $post_id) {
     // prepare database
     if (isset($post_id)) {
         /* */
-        $discfilenm = '/var/www/padiracinnovation.org/News/content/comments/forum_data/threads/' . $post_id . ".dat";
+        $discfilenm = __DIR__ . '/../../content/comments/forum_data/threads/' . $post_id . ".dat";
         if (is_file($discfilenm) == false) {
 
             echo '<h4>Write the first comment!</h4>';
@@ -93,7 +91,7 @@ function comnt_view($thdata, $config, $post_id) {
         } else {
         $comments = array() ;
         foreach($files1 as $filei) {
-            $comments[] = file_get_contents('/var/www/padiracinnovation.org/News/content/comments/forum_data/threads/' . $filei) ;
+            $comments[] = file_get_contents(__DIR__ . '/../../content/comments/forum_data/threads/' . $filei) ;
             }
             if (isset($comments)) {
 //            foreach($comments as $commentarray) {

@@ -2,7 +2,7 @@
 
 // Get author names. Unsorted.
 // All authors in this site are returned in an array.
-function get_author_name(): array {
+function get_author_name():array {
     static $_author = array();
 
     $url = 'content/index/index-author.txt';

@@ -5,13 +5,13 @@ function add_category(string $title, string $url, string $content, string $descr
     $post_title = safe_html($title);
     $post_url = strtolower(preg_replace(array('/[^a-zA-Z0-9 \-\p{L}]/u', '/[ -]+/', '/^-|-$/'), array('', '-', ''), $url));
     $description = safe_html($description1);
-    if($description !== null) {
+    if($description !== '') {
         $post_description = "\n<!--d " . $description . " d-->";
     } else {
         $post_description = "";
     }
     $post_content = '<!--t ' . $post_title . ' t-->' . $post_description . "\n\n" . $content;
-    if(!empty($post_title)&& !empty($post_url)&& !empty($post_content)) {
+    if(!empty($post_title)&& !empty($post_url)) {
              $post_content = stripslashes($post_content);
 
         $filename = $post_url . '.md';
@@ -35,13 +35,13 @@ function edit_category(Title $title, string $url, string $content, string $oldfi
     $post_title = safe_html($title->value);
     $post_url = strtolower(preg_replace(array('/[^a-zA-Z0-9 \-\p{L}]/u', '/[ -]+/', '/^-|-$/'), array('', '-', ''), $url));
     $description = safe_html($description1->value);
-    if($description !== null) {
+    if($description !== '') {
         $post_description = "\n<!--d " . $description . " d-->";
     } else {
         $post_description = '';
     }
     $post_content = '<!--t ' . $post_title . ' t-->' . $post_description . "\n\n" . $content;
-    if(!empty($post_title)&& !empty($post_url)&& !empty($post_content)) {
+    if(!empty($post_title)&& !empty($post_url)) {
             $post_content = stripslashes($post_content);
 
         $newfile = $dir . '/' . $post_url . '.md';
