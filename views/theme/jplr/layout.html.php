@@ -261,7 +261,7 @@ Variables are passed through the render function, for example:
                             <div class="section-inner">
                                 <h2 class="heading">Archive</h2>
                                 <div class="content">
-<?php echo archive_list(); ?>
+<?php /* echo */ archive_list(); ?>
                                 </div><!-- content-->
                             </div><!-- section-inner-->
                         </aside><!-- section-->

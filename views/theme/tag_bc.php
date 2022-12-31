@@ -71,10 +71,10 @@ function autosubtitle(string $body) {
     }
 
         // All words which are in minuscule and length is > 8
-        if (($majuscule == false) && (strlen($keyword) > 8)) {
+        if ((strlen($keyword) > 8)) {
             // Remove unwanted characters like '&#039;s' in Alzheimer&#039;s
             $unwantedpos = strpos($keyword, '&#');
-            if (($unwantedpos != false) && strlen($keyword) > 6) {
+            if (($unwantedpos != false)) {
                 $keyW = substr($keyword, 0, $unwantedpos);
                 $keyword_array[] = $keyW . ', ';
             } else {
