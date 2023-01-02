@@ -45,3 +45,8 @@ Coralie still has at least a dozen of bugs.
 You can have a look at it here:
 https://csrf.4lima.de/News
 
+# Installation
+* Upload this code to your Web folder
+* Change the root folder in config.ini (for example in my case site.url = "/News/")
+* Upload your content (compatible with HTMLy) in /content/users/"your login"/
+* Remove /content/widget/recent.cache
