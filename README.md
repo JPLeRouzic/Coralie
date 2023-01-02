@@ -47,8 +47,9 @@ https://csrf.4lima.de/News
 
 # Installation
 * Upload this code to your Web folder
+* ![image](https://user-images.githubusercontent.com/18621529/210220361-107500b6-640d-406f-a8ab-4b435be1c1ca.png)
 * Change the root folder in config.ini (for example in my case site.url = "/News/")
 * Upload your content (compatible with HTMLy) in /content/users/"your login"/
 * ![image](https://user-images.githubusercontent.com/18621529/210220057-a3854131-12c6-4eba-8a6b-ba9428e56b11.png)
 * Remove /content/widget/recent.cache
-![image](https://user-images.githubusercontent.com/18621529/210220168-df3315db-c143-4cf4-ba4f-7e5f2e7e8397.png)
+* ![image](https://user-images.githubusercontent.com/18621529/210220168-df3315db-c143-4cf4-ba4f-7e5f2e7e8397.png)
