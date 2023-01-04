@@ -47,7 +47,7 @@ function add_content(Title $title, Tag $tag, string $url, string $content,
 
         $post_content = "<!--t " . $post_title . " t-->" . $post_description . $valuemd . $post_media . "\n\n" . $content;
     if (!empty($post_title) && !empty($post_tag) && !empty($post_url)) {
-        $post_content = stripslashes($post_content);
+        // $post_content = stripslashes($post_content);
 
         /*
          * Create file name, it is based on:
