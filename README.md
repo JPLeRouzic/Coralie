@@ -10,13 +10,11 @@ HTMLy looks much simpler than Wordpress, so it may appeal because at first glanc
 Yet 3 years of using HTMLy has shown that debugging or extending HTMLy is no fun activity. 
 
 HTMLy didn't changed so much since it was published in 2013, it's a great example of spaghetti code and bugs had even been introduced in it in recent years.
-What's lacking most in HTMLy is a test and regression suite, Coralie is not better in this area.
+What's lacking most in HTMLy is a test and regression suite, at the moment Coralie is not better in this area but it will change in the future.
 
-This motivated me to develop Coralie. Coralie has a flat file database. It is developed to run on a VPS and Apache/PHP as host.
-I don't want to be involved in problems like configurations on host. Coralie also does not have fancy install functions: You upload it to your Apache web folder and that's it.
-Ideally most changes introduced with Coralie will be incorporated back in HTMLy.
-I am also sorry to add more noise to the crowd of flat-file blogs/CMS.
-You should also be aware that there are much better flat-file CMS out there.
+This motivated me to develop Coralie. Ideally most changes introduced with Coralie will be incorporated back in HTMLy.
+Coralie has a flat file database. It is developed to run on a VPS and Apache/PHP as host.
+To focus in introducing new features, I don't want to be involved in problems like configurations on other host technologies. Coralie also does not have fancy install functions: You upload it to your Apache web folder and that's it.
 
 Coralie uses small files instead of the horribly large htmly.php and functions.php.
 The login functions are properly written.
@@ -41,7 +39,9 @@ The user can listen to posts.
 
 You will not find internationalized menus as I don't feel the need, yet it should be very simple to introduce this function in Coralie.
 
-Coralie still has at least a dozen of bugs.
+Coralie still has at least dozens of bugs.
+You should also be aware that there are much better flat-file CMS out there.
+I am also sorry to add more noise to the crowd of flat-file blogs/CMS.
 
 You can have a look at it here:
 https://csrf.4lima.de/News
