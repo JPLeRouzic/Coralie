@@ -45,6 +45,11 @@ Coralie still has at least a dozen of bugs.
 You can have a look at it here:
 https://csrf.4lima.de/News
 
+# Roadmap
+Coralie, contrary to HTMLy, will have plugins.
+Coralie will be able to use at least 1/3 of WordPress plugins (they are over 70K, so Coralie will have only access to ~25,000 plugins :-) ).
+For WordPress plugins to be usable with Coralie, they must behave as WP asks: They should interact with the database only through WP_Query().
+
 # Installation
 * Upload this code to your Web folder
 * ![image](https://user-images.githubusercontent.com/18621529/210220361-107500b6-640d-406f-a8ab-4b435be1c1ca.png)
