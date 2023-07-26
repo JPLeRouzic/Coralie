@@ -1,3 +1,6 @@
+# Wordpress will support SQLite
+This removes the need for yet another flat file blog.
+
 # Coralie
 Coralie is flat-file blog derived from HTMLy
 https://github.com/danpros/htmly
