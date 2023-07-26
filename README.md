@@ -1,3 +1,10 @@
+# Some important information
+WordPress has announced that it will begin testing using the SQLite database in WordPress core. 
+Until now SQLite was only supported in WordPress using a standalone plugin.:
+https://blogiestools.com/wordpress-sqlite-database/
+
+This mostly removes the need for yet another flat-file blog, except if your users live in China (because of their Internet great wall).
+
 # Coralie
 Coralie is flat-file blog derived from HTMLy
 https://github.com/danpros/htmly
